@@ -1,10 +1,8 @@
 import { SlashCommandBuilder } from "discord.js";
-import { io } from "socket.io-client";
 import { default as EmbedDB } from "../../DB/Schema/Embed.js";
 import ticketCreateEmbed from "../../Embeds/ticketCreateEmbed.js";
 import createTicketChannel from "../../Utils/createTicketChannel.js";
 import Guild from "../../DB/Schema/Guild.js";
-const socket = io("http://localhost:3001");
 
 export default {
   data: new SlashCommandBuilder()
@@ -56,22 +54,5 @@ export default {
       );
       await interaction.editReply({ embeds: [Embed], ephemeral: true });
     });
-    socket.emit("ticket_created", "Ticket has been created.");
-
-    try {
-      socket.on("connect", () => {
-        socket.emit("ticket_created", "Ticket has been created.");
-      });
-
-      socket.on("connect_error", (err) => {
-        console.log(`connect_error due to ${err.message}`);
-      });
-
-      socket.on("disconnect", () => {
-        console.log("Client disconnected: ", socket.id);
-      });
-    } catch (error) {
-      console.error("Error handling socket events:", error);
-    }
   },
 };
