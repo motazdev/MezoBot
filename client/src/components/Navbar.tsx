@@ -18,15 +18,9 @@ const Navbar = async () => {
         </Link>
         <Link
           href="#features"
-          className="text-foreground transition-colors hover:text-foreground"
-        >
-          Features
-        </Link>
-        <Link
-          href="#"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
-          Commands
+          Features
         </Link>
       </nav>
       <Sheet>
@@ -43,15 +37,9 @@ const Navbar = async () => {
             </Link>
             <Link
               href="#"
-              className="text-foreground transition-colors hover:text-foreground"
-            >
-              Features
-            </Link>
-            <Link
-              href="#"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Commands
+              Features
             </Link>
           </nav>
         </SheetContent>
@@ -61,16 +49,6 @@ const Navbar = async () => {
       </Link>
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <div className="ml-auto">
-          <Button className="flex-1 mr-5 hidden md:inline sm:flex-initial">
-            <Link
-              href={
-                "https://discord.com/oauth2/authorize?client_id=1123366210197803079"
-              }
-              target="_blank"
-            >
-              Add to Discord
-            </Link>
-          </Button>
           {!session?.user ? (
             <LoginButton />
           ) : (
@@ -85,41 +63,3 @@ const Navbar = async () => {
 };
 
 export default Navbar;
-
-/**
-   <div className="dark:bg-obsidian">
-      <NavbarContainer>
-        <div className="flex flex-row items-center border-b py-4 border-gray-200 dark:border-gray-200/10">
-          <button className="mobile-menu mr-4 border md:hidden border-gray-200 rounded-sm">
-            <MenuIcon size={22} />
-          </button>
-          <Link href={"/"} className="logo">
-            <p className="font-bold text-lg">MezoBot</p>
-          </Link>
-          <div className="menu ml-8 gap-x-10 md:flex hidden ">
-            <Link href="#_">Features</Link>
-            <Link href="#_">Commands</Link>
-          </div>
-          <div className="ml-auto flex gap-x-3">
-            <Button>
-              <Link
-                href={
-                  "https://discord.com/oauth2/authorize?client_id=1123366210197803079"
-                }
-                target="_blank"
-              >
-                Add to Discord
-              </Link>
-            </Button>
-
-            {!session?.user && <LoginButton />}
-
-            {session?.user && <UserDropdownMenuButton session={session} />}
-
-            <ThemeToggleButton />
-          </div>
-        </div>
-      </NavbarContainer>
-    </div>
-  
- */
