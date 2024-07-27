@@ -74,9 +74,7 @@ const getDiscordClient = (req, res, next) => {
 
 appRouter(app, express, getDiscordClient);
 
-const server = app.listen(port, () =>
-  console.log(`MezoBot app listening on port ${port}!`)
-);
+app.listen(port, () => console.log(`MezoBot app listening on port ${port}!`));
 
 client.on("interactionCreate", async (interaction) => {
   const guildData = await Guild.findOne({ guildId: interaction.guildId });

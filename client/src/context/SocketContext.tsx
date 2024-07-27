@@ -20,20 +20,20 @@ export default function SocketProvider({
 }) {
   const [socket, setSocket] = useState<socketIO.Socket>();
 
-  useEffect(() => {
-    const socket = socketIO.io("http://localhost:3001", { autoConnect: true });
+  // useEffect(() => {
+  //   const socket = socketIO.io("http://localhost:3001", { autoConnect: true });
 
-    socket.on("ticket_created", (data) => {
-      toast.success(data);
-    });
-    setSocket(socket);
-    return () => {
-      socket.off("connect");
-      socket.off("ticket_created");
-      socket.off("disconnect");
-      socket.disconnect();
-    };
-  }, []);
+  //   socket.on("ticket_created", (data) => {
+  //     toast.success(data);
+  //   });
+  //   setSocket(socket);
+  //   return () => {
+  //     socket.off("connect");
+  //     socket.off("ticket_created");
+  //     socket.off("disconnect");
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   return (
     <SocketContext.Provider value={{ socket }}>
