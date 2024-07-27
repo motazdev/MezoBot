@@ -27,7 +27,12 @@ dotenv.config();
 const app = express();
 const port = 3001;
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000", "https://mezo-bot-next.vercel.app"],
+  })
+);
 app.use(express.json());
 
 connectDB();
