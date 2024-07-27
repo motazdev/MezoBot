@@ -89,7 +89,8 @@ client.on("interactionCreate", async (interaction) => {
     });
     if (isClaimAllowed) {
       const customOnTicketClaimEmbed = await EmbedDB.findOne({
-        embed_tag: "on_ticket_claim",
+        embed_tag: "after_ticket_claimed",
+        guildId: interaction.guildId,
       }).then((data) => data);
       interaction.message.edit({
         components: [afterTicketClaimButtonsRow()],

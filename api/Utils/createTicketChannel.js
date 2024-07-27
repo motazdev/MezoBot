@@ -9,7 +9,6 @@ import countUserTickets from "./tickets/countUserTickets.js";
 const createTicketChannel = async (interaction, categoryId) => {
   const guild = interaction.client.guilds.cache.get(interaction.guildId);
   const user = interaction.user;
-  interaction.sss = "afsausgfkjagsfiukjabsf";
   const subject =
     interaction.options.get("subject")?.value || "No Subject Provided";
 

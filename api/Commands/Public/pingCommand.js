@@ -11,6 +11,6 @@ export default {
         .setRequired(true)
     ),
   execute: async (interaction) => {
-    await interaction.reply({ content: "Pong!", ephemeral: true }); // ephermal > only visible for yourself
+    await interaction.reply({ content: "Pong!", ephemeral: true }); // ephemeral > only visible for yourself
   },
 };
