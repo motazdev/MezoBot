@@ -153,3 +153,6 @@ io.on("connection", (socket) => {
     io.emit("ticket_created", `${message}`);
   });
 });
+
+export default app;
+
