@@ -11,6 +11,7 @@ import "react-quill/dist/quill.snow.css";
 import Footer from "@/components/Footer";
 import NewsLetterForm from "@/components/NewsLetterForm";
 import newsLetterService from "@/services/newsletter";
+import Link from "next/link";
 
 export default function Home() {
   const addUserNewsletter = async (email: string) => {
@@ -30,7 +31,16 @@ export default function Home() {
             Transform the way you handle support on your Discord server with our
             powerful bot.
           </p>
-          <Button variant="default">Add to Discord</Button>
+          <Button className="flex-1 mr-5 hidden md:inline sm:flex-initial">
+            <Link
+              href={
+                "https://discord.com/oauth2/authorize?client_id=1123366210197803079"
+              }
+              target="_blank"
+            >
+              Add to Discord
+            </Link>
+          </Button>
         </div>
       </Container>
 

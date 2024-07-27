@@ -18,15 +18,9 @@ const Navbar = async () => {
         </Link>
         <Link
           href="#features"
-          className="text-foreground transition-colors hover:text-foreground"
-        >
-          Features
-        </Link>
-        <Link
-          href="#"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
-          Commands
+          Features
         </Link>
       </nav>
       <Sheet>
@@ -43,15 +37,9 @@ const Navbar = async () => {
             </Link>
             <Link
               href="#"
-              className="text-foreground transition-colors hover:text-foreground"
-            >
-              Features
-            </Link>
-            <Link
-              href="#"
               className="text-muted-foreground transition-colors hover:text-foreground"
             >
-              Commands
+              Features
             </Link>
           </nav>
         </SheetContent>
@@ -61,16 +49,6 @@ const Navbar = async () => {
       </Link>
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <div className="ml-auto">
-          <Button className="flex-1 mr-5 hidden md:inline sm:flex-initial">
-            <Link
-              href={
-                "https://discord.com/oauth2/authorize?client_id=1123366210197803079"
-              }
-              target="_blank"
-            >
-              Add to Discord
-            </Link>
-          </Button>
           {!session?.user ? (
             <LoginButton />
           ) : (
