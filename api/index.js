@@ -8,7 +8,6 @@ import {
 } from "discord.js";
 import dotenv from "dotenv";
 import express from "express";
-import { Server } from "socket.io";
 import { connectDB } from "./DB/connect.js";
 import { default as EmbedDB } from "./DB/Schema/Embed.js";
 import Guild from "./DB/Schema/Guild.js";
@@ -28,7 +27,12 @@ dotenv.config();
 const app = express();
 const port = 3001;
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000", "https://mezo-bot-next.vercel.app"],
+  })
+);
 app.use(express.json());
 
 connectDB();
@@ -70,16 +74,7 @@ const getDiscordClient = (req, res, next) => {
 
 appRouter(app, express, getDiscordClient);
 
-const server = app.listen(port, () =>
-  console.log(`MezoBot app listening on port ${port}!`)
-);
-
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
-});
+app.listen(port, () => console.log(`MezoBot app listening on port ${port}!`));
 
 client.on("interactionCreate", async (interaction) => {
   const guildData = await Guild.findOne({ guildId: interaction.guildId });
@@ -94,7 +89,8 @@ client.on("interactionCreate", async (interaction) => {
     });
     if (isClaimAllowed) {
       const customOnTicketClaimEmbed = await EmbedDB.findOne({
-        embed_tag: "on_ticket_claim",
+        embed_tag: "after_ticket_claimed",
+        guildId: interaction.guildId,
       }).then((data) => data);
       interaction.message.edit({
         components: [afterTicketClaimButtonsRow()],
@@ -126,20 +122,16 @@ client.on("interactionCreate", async (interaction) => {
     const ticketsChannels = interaction.guild.channels.cache.filter(
       (ch) => ch.parentId === guildData.categoryId
     );
-    const yy = await closeTicket(reason, interaction.channelId);
+    await closeTicket(reason, interaction.channelId);
 
     let embed = await ticketClosedEmbed(client, interaction);
-    // DELETE LATER
-    if (reason == "test") {
-      ticketsChannels.forEach((e) => e.delete());
-    } else {
-      await client.users.send(user, {
-        embeds: [embed.data],
-      });
-      await interaction.guild.channels.cache
-        .get(interaction.channelId)
-        .delete("Ticket Closed");
-    }
+    // ticketsChannels.forEach((e) => e.delete());
+    await client.users.send(user, {
+      embeds: [embed.data],
+    });
+    await interaction.guild.channels.cache
+      .get(interaction.channelId)
+      .delete("Ticket Closed");
 
     await interaction.reply({
       content: "Ticket Closed!",
@@ -147,12 +139,4 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-io.on("connection", (socket) => {
-  socket.on("ticket_created", (message) => {
-    console.log("Ticket has been created (server): ", message);
-    io.emit("ticket_created", `${message}`);
-  });
-});
-
 export default app;
-
